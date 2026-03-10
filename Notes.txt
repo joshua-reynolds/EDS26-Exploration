@@ -1,0 +1,7 @@
+ESRI SUMMIT Notes
+-what can be done with scene viewer (3d basemap looking thing) ? Do any of our datasets compliment this?
+- trivia question: how many people move into our region per day (city of raleigh)
+- Look into ESRI iMAPS
+
+- map libre plugin: features as pbf tiles
+	
