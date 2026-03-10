@@ -4,4 +4,14 @@ ESRI SUMMIT Notes
 - Look into ESRI iMAPS
 
 - map libre plugin: features as pbf tiles
-	
+- spike theme map
+
+- AGOL: map and scene: google photorealistic 3d (beta)
+
+- ai copmonents
+
+- glowing outline
+
+- growing 3d map with play button?
+
+- js sdk common components
