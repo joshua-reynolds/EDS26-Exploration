@@ -54,6 +54,14 @@
       </calcite-panel>
       <arcgis-zoom slot="top-left"></arcgis-zoom>
       <arcgis-legend slot="bottom-right"></arcgis-legend>
+      <calcite-select slot="bottom-left" id="yearSelect" label-text="Year:">
+            <calcite-option value="2025">2025</calcite-option>
+            <calcite-option value="2030">2030</calcite-option>
+            <calcite-option value="2035">2035</calcite-option>
+            <calcite-option value="2045">2045</calcite-option>
+            <calcite-option value="2050">2050</calcite-option>
+            <calcite-option value="2055" selected>2055</calcite-option> </calcite-select
+          ><br />
     </arcgis-map>
 
     <arcgis-scene
@@ -71,6 +79,14 @@
       <arcgis-navigation-toggle slot="top-left"></arcgis-navigation-toggle>
       <arcgis-compass slot="top-left"></arcgis-compass>
       <arcgis-legend slot="bottom-right"></arcgis-legend>
+      <calcite-select slot="bottom-left" id="yearSelect"  label-text="Year:">
+            <calcite-option value="2025">2025</calcite-option>
+            <calcite-option value="2030">2030</calcite-option>
+            <calcite-option value="2035">2035</calcite-option>
+            <calcite-option value="2045">2045</calcite-option>
+            <calcite-option value="2050">2050</calcite-option>
+            <calcite-option value="2055" selected>2055</calcite-option> </calcite-select
+          ><br />
     </arcgis-scene>
 
     <div id="view-control-container">
@@ -120,6 +136,68 @@
       };
 
       switchViewButton.addEventListener("click", (event) => switchView(event.target));
+
+    
+      // Wait for the view to be ready
+      await mapViewElement.viewOnReady();
+
+      // get the layer from the map
+      const jobsFromMap = mapViewElement.map.allLayers.find(
+          (jobsFromMap) => jobsFromMap.title === "Total Jobs 2055",
+        );
+
+      await sceneViewElement.viewOnReady();  
+      
+      // get the layer from the scene
+      const jobsFromScene = sceneViewElement.map.allLayers.find(
+          (jobsFromScene) => jobsFromScene.title === "Total Jobs 2055",
+        );
+
+      console.log(jobsFromMap);
+      console.log(jobsFromScene);
+
+
+      
+
+  
+
+
+
+
+      // select the year
+      const yearSelect = document.getElementById('yearSelect');
+      yearSelect.addEventListener('calciteSelectChange', () => {
+          // get the selection text
+          const selectionText = yearSelect.value;
+          jobsFromMap.renderer.field = 'N_' + selectionText
+          jobsFromScene.renderer.field = 'N_' + selectionText
+          console.log(jobsFromMap.renderer.field)
+          console.log(jobsFromScene.renderer.field)
+          
+      });
+
+
+
+
+
+
+
+      // jobsFromMap.renderer.field = 'N_2023'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
   </body>
 </html>
