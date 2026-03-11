@@ -15,3 +15,12 @@ ESRI SUMMIT Notes
 - growing 3d map with play button?
 
 - js sdk common components
+
+- geo dremographic embedding
+
+hui in parquet file?
+
+
+hours:
+monday 4.5
+tuesday 11
