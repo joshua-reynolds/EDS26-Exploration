@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>AI Assistant component (beta) | Sample | ArcGIS Maps SDK for JavaScript</title>
+    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+    <script type="module" src="https://js.arcgis.com/5.0/"></script>
+  </head>
+
+  <body>
+    <calcite-shell>
+      <arcgis-map id="beehive-bikeways" item-id="2f4948bb6e7c4b2f92374028b2d20917">
+        <arcgis-zoom slot="top-left"></arcgis-zoom>
+        <arcgis-expand slot="top-left">
+          <arcgis-legend></arcgis-legend>
+        </arcgis-expand>
+      </arcgis-map>
+      <calcite-shell-panel slot="panel-end" width="l" id="assistant-panel">
+        <calcite-panel>
+          <arcgis-assistant
+            log-enabled
+            copy-enabled
+            reference-element="#beehive-bikeways"
+            heading="Beehive Bikeways 2024"
+            description="Explore planned beehive bikeways routes across the region."
+            entry-message="Hello! I'm here to help you explore the planned beehive bikeways routes.">
+            <arcgis-assistant-navigation-agent></arcgis-assistant-navigation-agent>
+            <arcgis-assistant-data-exploration-agent></arcgis-assistant-data-exploration-agent>
+            <arcgis-assistant-help-agent></arcgis-assistant-help-agent>
+          </arcgis-assistant>
+        </calcite-panel>
+      </calcite-shell-panel>
+    </calcite-shell>
+
+    <script type="module">
+      const assistantElement = document.querySelector("arcgis-assistant");
+      const mapElement = document.querySelector("arcgis-map");
+      assistantElement.suggestedPrompts = [
+        "Go to the county that produced the most wheat in 2022.",
+        "How does that compare to the average county that produced wheat?",
+        "How many counties produced less wheat in 2022 than in 2017?",
+      ];
+    </script>
+  </body>
+</html>
