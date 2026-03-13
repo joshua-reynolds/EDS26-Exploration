@@ -54,13 +54,14 @@
       </calcite-panel>
       <arcgis-zoom slot="top-left"></arcgis-zoom>
       <arcgis-legend slot="bottom-right"></arcgis-legend>
-      <calcite-select slot="bottom-left" id="yearSelect" label-text="Year:">
+      <calcite-select slot="bottom-left" id="yearSelect1" label-text="Year:">
+            <calcite-option value="2023" selected>2023</calcite-option>
             <calcite-option value="2025">2025</calcite-option>
             <calcite-option value="2030">2030</calcite-option>
             <calcite-option value="2035">2035</calcite-option>
             <calcite-option value="2045">2045</calcite-option>
             <calcite-option value="2050">2050</calcite-option>
-            <calcite-option value="2055" selected>2055</calcite-option> </calcite-select
+            <calcite-option value="2055">2055</calcite-option> </calcite-select
           ><br />
     </arcgis-map>
 
@@ -79,13 +80,14 @@
       <arcgis-navigation-toggle slot="top-left"></arcgis-navigation-toggle>
       <arcgis-compass slot="top-left"></arcgis-compass>
       <arcgis-legend slot="bottom-right"></arcgis-legend>
-      <calcite-select slot="bottom-left" id="yearSelect"  label-text="Year:">
+      <calcite-select slot="bottom-left" id="yearSelect2"  label-text="Year:">
+            <calcite-option value="2023" selected>2023</calcite-option>
             <calcite-option value="2025">2025</calcite-option>
             <calcite-option value="2030">2030</calcite-option>
             <calcite-option value="2035">2035</calcite-option>
             <calcite-option value="2045">2045</calcite-option>
             <calcite-option value="2050">2050</calcite-option>
-            <calcite-option value="2055" selected>2055</calcite-option> </calcite-select
+            <calcite-option value="2055">2055</calcite-option> </calcite-select
           ><br />
     </arcgis-scene>
 
@@ -139,18 +141,16 @@
 
     
       // Wait for the view to be ready
-      await mapViewElement.viewOnReady();
+
 
       // get the layer from the map
       const jobsFromMap = mapViewElement.map.allLayers.find(
-          (jobsFromMap) => jobsFromMap.title === "Total Jobs 2055",
+          (jobsFromMap) => jobsFromMap.title === "Total Jobs",
         );
-
-      await sceneViewElement.viewOnReady();  
       
       // get the layer from the scene
       const jobsFromScene = sceneViewElement.map.allLayers.find(
-          (jobsFromScene) => jobsFromScene.title === "Total Jobs 2055",
+          (jobsFromScene) => jobsFromScene.title === "Total Jobs",
         );
 
       console.log(jobsFromMap);
@@ -164,17 +164,57 @@
 
 
 
-      // select the year
-      const yearSelect = document.getElementById('yearSelect');
-      yearSelect.addEventListener('calciteSelectChange', () => {
-          // get the selection text
-          const selectionText = yearSelect.value;
-          jobsFromMap.renderer.field = 'N_' + selectionText
-          jobsFromScene.renderer.field = 'N_' + selectionText
-          console.log(jobsFromMap.renderer.field)
-          console.log(jobsFromScene.renderer.field)
-          
-      });
+        // select the year
+        const yearSelect1 = document.getElementById('yearSelect1');
+        const yearSelect2 = document.getElementById('yearSelect2');
+
+        yearSelect1.addEventListener('calciteSelectChange', () => {
+          const selectionText = yearSelect1.value;
+          const newField = 'N_' + selectionText;
+          yearSelect2.setAttribute('value', selectionText);
+
+          // Fix for 2D Map
+          if (jobsFromMap) {
+            const newRendererMap = jobsFromMap.renderer.clone();
+            newRendererMap.field = newField;
+            jobsFromMap.renderer = newRendererMap; // Re-assignment triggers the update
+          }
+
+          // Fix for 3D Scene
+          if (jobsFromScene) {
+            const newRendererScene = jobsFromScene.renderer.clone();
+            newRendererScene.field = newField;
+            newRendererScene.visualVariables[0].field = newField;
+            newRendererScene.visualVariables[1].field = newField;
+            jobsFromScene.renderer = newRendererScene; 
+          }
+
+          console.log("Updated field to:", newField);
+        });
+        
+        yearSelect2.addEventListener('calciteSelectChange', () => {
+          const selectionText = yearSelect2.value;
+          const newField = 'N_' + selectionText;
+          yearSelect1.setAttribute('value', selectionText);
+
+          // Fix for 2D Map
+          if (jobsFromMap) {
+            const newRendererMap = jobsFromMap.renderer.clone();
+            newRendererMap.field = newField;
+            jobsFromMap.renderer = newRendererMap; // Re-assignment triggers the update
+          }
+
+          // Fix for 3D Scene
+          if (jobsFromScene) {
+            const newRendererScene = jobsFromScene.renderer.clone();
+            newRendererScene.field = newField;
+            newRendererScene.visualVariables[0].field = newField;
+            newRendererScene.visualVariables[1].field = newField;
+            jobsFromScene.renderer = newRendererScene; 
+          }
+
+          console.log("Updated field to:", newField);
+        });
 
 
 

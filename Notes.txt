@@ -20,6 +20,22 @@ ESRI SUMMIT Notes
 
 hui in parquet file?
 
+gotta return to vite
+react, angluar, and vue
+
+geojson way slower that feature layers
+
+enhanceinh housing unit inventory (jim herries)
+- change shapes to emphasize the different housing 
+- cluster by defined geography neighborhood, zip code,
+- remove outlines or make them grey/white and thinner
+- change symbology based on I want user to see 
+- new animations in symbology layer, can make the points we want to emphasize shrink and grow
+
+arcgis create
+pull fewer atrributes when loading layer
+onsider vector tile
+
 
 hours:
 monday 4.5
